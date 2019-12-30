@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:layout_margin="16dp"
+    tools:context=".LoginActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:textSize="30sp"
+        android:gravity="center"
+        android:layout_marginBottom="80dp"
+        android:textColor="@android:color/black"
+        android:fontFamily="sans-serif-condensed-medium"/>
+
+    <EditText
+        android:id="@+id/username_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@android:color/black"
+        android:hint="UserName / Email"/>
+
+    <EditText
+        android:id="@+id/password_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@android:color/black"
+        android:hint="Password"/>
+
+    <Button
+        android:id="@+id/login_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:background="@color/colorAccent"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="10dp"
+        />
+
+    <TextView
+        android:id="@+id/sign_up_txt_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Not a user yet? SignUp"
+        android:textSize="20sp"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textColor="@android:color/black"/>
+</LinearLayout>

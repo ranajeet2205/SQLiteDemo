@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp"
+    android:orientation="vertical"
+    tools:context=".SignUpActivity">
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/ic_person_outline_black_24dp" />
+
+    <EditText
+        android:id="@+id/username_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="USERNAME"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
+
+    <EditText
+        android:id="@+id/email_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="EMAIL"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
+
+    <EditText
+        android:id="@+id/mobile_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="MOBILE NO"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
+
+    <EditText
+        android:id="@+id/pass_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="PASSWORD"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
+
+    <EditText
+        android:id="@+id/confirm_pass_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="CONFIRM PASSWORD"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
+
+    <Button
+        android:id="@+id/sign_up_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:background="@color/colorAccent"
+        android:text="SIGN UP"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
+</LinearLayout>
