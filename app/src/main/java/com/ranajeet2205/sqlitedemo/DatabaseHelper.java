@@ -14,7 +14,13 @@ import java.util.List;
 import static com.ranajeet2205.sqlitedemo.NoteEntry.COLUMN_ID;
 import static com.ranajeet2205.sqlitedemo.NoteEntry.COLUMN_NOTE_DESC;
 import static com.ranajeet2205.sqlitedemo.NoteEntry.COLUMN_NOTE_TTITLE;
-import static com.ranajeet2205.sqlitedemo.NoteEntry.TABLE_NAME;
+import static com.ranajeet2205.sqlitedemo.NoteEntry.NOTES_TABLE;
+import static com.ranajeet2205.sqlitedemo.NoteEntry.USER_COLUMN_EMAIL;
+import static com.ranajeet2205.sqlitedemo.NoteEntry.USER_COLUMN_ID;
+import static com.ranajeet2205.sqlitedemo.NoteEntry.USER_COLUMN_MOBILE;
+import static com.ranajeet2205.sqlitedemo.NoteEntry.USER_COLUMN_NAME;
+import static com.ranajeet2205.sqlitedemo.NoteEntry.USER_COLUMN_PASSWORD;
+import static com.ranajeet2205.sqlitedemo.NoteEntry.USER_TABLE;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -22,29 +28,43 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "note.db";
 
-    // Create table SQL query
-    public static final String CREATE_TABLE =
-            "CREATE TABLE " + TABLE_NAME + "("
+    // Create table SQL query for note table
+    private static final String CREATE_NOTE_TABLE =
+
+            "CREATE TABLE " + NOTES_TABLE + "("
                     + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + COLUMN_NOTE_TTITLE + " TEXT,"
                     + COLUMN_NOTE_DESC + " TEXT"
                     + ")";
 
+    //create table sql query for user table
+    private static final String CREATE_USER_TABLE =
+
+            "CREATE TABLE "+USER_TABLE+"("
+                    +USER_COLUMN_ID+"INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    +USER_COLUMN_NAME+"TEXT,"
+                    +USER_COLUMN_PASSWORD+"TEXT,"
+                    +USER_COLUMN_EMAIL+"TEXT,"
+                    +USER_COLUMN_MOBILE+"TEXT"
+                    +")";
+
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(CREATE_TABLE);
+
+        db.execSQL(CREATE_NOTE_TABLE);
+        db.execSQL(CREATE_USER_TABLE);
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
         // Drop older table if existed
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + NOTES_TABLE);
         // Create tables again
         onCreate(db);
     }
@@ -61,7 +81,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_NOTE_DESC, note.getDescription());
 
         // insert row
-        long id = db.insert(TABLE_NAME, null, values);
+        long id = db.insert(NOTES_TABLE, null, values);
 
         // close db connection
         db.close();
@@ -75,7 +95,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         List<Note> notes = new ArrayList<>();
 
         // Select All Query
-        String selectQuery = "SELECT  * FROM " + TABLE_NAME + " ORDER BY " +
+        String selectQuery = "SELECT  * FROM " + NOTES_TABLE + " ORDER BY " +
                 COLUMN_ID + " DESC";
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -110,13 +130,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
         // updating row
-        return db.update(TABLE_NAME, values, COLUMN_ID + " = ?", new String[]{String.valueOf(note.getId())});
+        return db.update(NOTES_TABLE, values, COLUMN_ID + " = ?", new String[]{String.valueOf(note.getId())});
     }
 
 
     public void deleteNote(Note note) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_NAME, COLUMN_ID + " = ?", new String[]{String.valueOf(note.getId())});
+        db.delete(NOTES_TABLE, COLUMN_ID + " = ?", new String[]{String.valueOf(note.getId())});
         db.close();
     }
 
@@ -125,7 +145,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // get readable database as we are not inserting anything
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_NAME,
+        Cursor cursor = db.query(NOTES_TABLE,
                 new String[]{COLUMN_ID, COLUMN_NOTE_TTITLE, COLUMN_NOTE_DESC},
                 COLUMN_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
