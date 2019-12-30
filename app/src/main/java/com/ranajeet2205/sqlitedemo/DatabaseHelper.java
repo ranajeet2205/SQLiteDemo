@@ -40,13 +40,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //create table sql query for user table
     private static final String CREATE_USER_TABLE =
 
-            "CREATE TABLE "+USER_TABLE+"("
-                    +USER_COLUMN_ID+"INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    +USER_COLUMN_NAME+"TEXT,"
-                    +USER_COLUMN_PASSWORD+"TEXT,"
-                    +USER_COLUMN_EMAIL+"TEXT,"
-                    +USER_COLUMN_MOBILE+"TEXT"
-                    +")";
+            "CREATE TABLE " + USER_TABLE + "("
+                    + USER_COLUMN_ID + "INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + USER_COLUMN_NAME + "TEXT,"
+                    + USER_COLUMN_PASSWORD + "TEXT,"
+                    + USER_COLUMN_EMAIL + "TEXT,"
+                    + USER_COLUMN_MOBILE + "TEXT"
+                    + ")";
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -164,4 +164,47 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return note;
     }
+
+    /***
+     * This method helps to insert the user  into user table
+     * @param userName
+     * @param password
+     * @param email
+     * @param mobile
+     * @return
+     */
+    public boolean insertUser(String userName, String password, String email, String mobile) {
+
+        SQLiteDatabase database = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(USER_COLUMN_NAME, userName);
+        contentValues.put(USER_COLUMN_PASSWORD, password);
+        contentValues.put(USER_COLUMN_EMAIL, email);
+        contentValues.put(USER_COLUMN_MOBILE, mobile);
+
+        if (!isUserExist(userName, password)){
+            database.insert(USER_TABLE, null, contentValues);
+            database.close();
+            return true;
+        }else{
+            return  false;
+        }
+
+    }
+
+    public boolean isUserExist(String userName, String password) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(USER_TABLE, new String[]{USER_COLUMN_NAME, USER_COLUMN_PASSWORD},
+                USER_COLUMN_NAME + "=?" + "AND" + USER_COLUMN_PASSWORD + "=?",
+                new String[]{userName, password}, null, null, null, null
+        );
+
+        return cursor != null && cursor.moveToFirst();
+
+    }
+
 }

@@ -18,11 +18,12 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText userNameEdit, emailEdit, passwordEdit, confirmEdit, mobileEdit;
     private Button signUpBtn;
     private String userName, email, password, confirmPassword, mobile;
-
+    static DatabaseHelper db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        db = new DatabaseHelper(this);
 
         userNameEdit = findViewById(R.id.username_edit);
         emailEdit = findViewById(R.id.email_edit);
@@ -43,7 +44,7 @@ public class SignUpActivity extends AppCompatActivity {
                 String validationReturn = validateInputData();
 
                 if (validationReturn.equalsIgnoreCase("success")) {
-                    
+                    db.insertUser(userName,password,email,mobile);
                 } else {
                     Toast.makeText(SignUpActivity.this, "" + validationReturn, Toast.LENGTH_LONG).show();
                 }
