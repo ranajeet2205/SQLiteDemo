@@ -2,6 +2,8 @@ package com.ranajeet2205.sqlitedemo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -44,7 +46,7 @@ public class SignUpActivity extends AppCompatActivity {
                 String validationReturn = validateInputData();
 
                 if (validationReturn.equalsIgnoreCase("success")) {
-                    db.insertUser(userName,password,email,mobile);
+                   new InsertAsyncTask().execute();
                 } else {
                     Toast.makeText(SignUpActivity.this, "" + validationReturn, Toast.LENGTH_LONG).show();
                 }
@@ -124,5 +126,21 @@ public class SignUpActivity extends AppCompatActivity {
      */
     private boolean comparePassword() {
         return password.equals(confirmPassword);
+    }
+
+    public class InsertAsyncTask extends AsyncTask<Void,Void,Void>{
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            db.insertUser(userName,password,email,mobile);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            startActivity(new Intent(SignUpActivity.this,LoginActivity.class));
+            finish();
+        }
     }
 }
