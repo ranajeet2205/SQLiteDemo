@@ -53,6 +53,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    /***
+     * That async task is used to get all the notes from database
+     * and add it into list and inflate it into recyclerView
+     */
     public class AddRecyclerViewAsyncTask extends AsyncTask<Void, Void, List<Note>> {
 
         @Override

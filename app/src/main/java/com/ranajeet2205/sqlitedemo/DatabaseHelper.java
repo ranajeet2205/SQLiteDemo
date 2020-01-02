@@ -25,8 +25,8 @@ import static com.ranajeet2205.sqlitedemo.NoteEntry.USER_TABLE;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "note.db";
+    private static final int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "note.db";
 
     // Create table SQL query for note table
     private static final String CREATE_NOTE_TABLE =
@@ -65,11 +65,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // Drop older table if existed
         db.execSQL("DROP TABLE IF EXISTS " + NOTES_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + USER_TABLE);
         // Create tables again
         onCreate(db);
     }
 
 
+    /***
+     * Thi s method is used to insert the note into note table
+     * @param note
+     * @return
+     */
     public long insertNote(Note note) {
         // get writable database as we want to write data
         SQLiteDatabase db = this.getWritableDatabase();
@@ -91,6 +97,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+    /***
+     * This method select all the notes availble in the note table and return it
+     * @return
+     */
     public List<Note> getAllNotes() {
         List<Note> notes = new ArrayList<>();
 
@@ -121,6 +131,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+    /***
+     * Update a note value
+     * @param note
+     * @return
+     */
     public int updateNote(Note note) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -167,6 +182,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /***
      * This method helps to insert the user  into user table
+     * Before inserting the value to database it checks the user exist in database or not
      * @param userName
      * @param password
      * @param email
@@ -194,6 +210,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    /***
+     * This method checks for the user is exist in databse or not
+     * And it returns a boolean value
+     * @param userName
+     * @param password
+     * @return boolean
+     */
     public boolean isUserExist(String userName, String password) {
 
         SQLiteDatabase db = this.getReadableDatabase();

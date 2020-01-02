@@ -34,6 +34,9 @@ public class SignUpActivity extends AppCompatActivity {
         mobileEdit = findViewById(R.id.mobile_edit);
         signUpBtn = findViewById(R.id.sign_up_btn);
 
+        /***
+         * Click operation of sginup button
+         */
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,19 +131,28 @@ public class SignUpActivity extends AppCompatActivity {
         return password.equals(confirmPassword);
     }
 
-    public class InsertAsyncTask extends AsyncTask<Void,Void,Void>{
+    /***
+     * This AsyncTask helps to take our insert a new user to user table operation
+     * It is a background task  that prevents for UI Frezee
+     */
+    public class InsertAsyncTask extends AsyncTask<Void,Void,Boolean>{
 
         @Override
-        protected Void doInBackground(Void... voids) {
-            db.insertUser(userName,password,email,mobile);
-            return null;
+        protected Boolean doInBackground(Void... voids) {
+
+            return db.insertUser(userName,password,email,mobile);
         }
 
         @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            startActivity(new Intent(SignUpActivity.this,LoginActivity.class));
-            finish();
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+            if (aBoolean){
+                startActivity(new Intent(SignUpActivity.this,LoginActivity.class));
+                finish();
+            }else{
+                Toast.makeText(SignUpActivity.this, "The User Already Exist In database", Toast.LENGTH_SHORT).show();
+            }
+
         }
     }
 }

@@ -26,6 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         db = new DatabaseHelper(this);
         userNameEditText = findViewById(R.id.username_edit_text);
         passwordEditText = findViewById(R.id.password_edit_text);
@@ -58,6 +59,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * This Asynctask check the data base operation for the user is avilable or not
+     * If the user is availble then it will Intent to MainActivity
+     */
     public class CheckUserAsyncTask extends AsyncTask<String,Void,Boolean>{
 
         @Override

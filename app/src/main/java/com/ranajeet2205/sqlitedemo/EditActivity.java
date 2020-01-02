@@ -46,24 +46,5 @@ public class EditActivity extends AppCompatActivity {
     }
 
 
-    public static class BackgroundTask extends AsyncTask<Note,Void, List<Note>>{
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected List<Note> doInBackground(Note... notes) {
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(List<Note> notes) {
-            super.onPostExecute(notes);
-        }
-
-
-    }
 
 }
